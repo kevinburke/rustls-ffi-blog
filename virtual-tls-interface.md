@@ -110,6 +110,19 @@ from any OpenSSL specific code (maybe `tls-common.h`).
 ssize_t tls_read(tls_conn *conn, void *ptr, size_t len);
 ```
 
+### Some examples you can look at
+
+Curl [uses a `vtls` interface][vtls] to switch between several different TLS
+implementations, choosing one at runtime. [Here is how rustls implements that
+interface][curl-rustls].
+
+Postgres uses an interface based on [several calls named `pgtls_*`][pgtls] that
+are implemented by OpenSSL in a separate file.
+
+[vtls]: https://github.com/curl/curl/blob/master/lib/vtls/vtls.h#L37-L92
+[curl-rustls]: https://github.com/curl/curl/blob/master/lib/vtls/rustls.c#L554-L581
+[pgtls]: https://github.com/postgres/postgres/blob/master/src/interfaces/libpq/libpq-int.h#L717-L800
+
 ### That's it!
 
 Once you've done this, you should have an interface that you could call with
